@@ -3,11 +3,11 @@ import { FaSearch } from "react-icons/fa";
 
 const Sec2 = () => {
   return (
-    <section className="max-w-[1300px] mx-auto pt-[5rem]">
+    <section className="max-w-[1300px] mx-auto pt-[5rem] px-[1rem]">
       <div className="flex flex-col items-center">
         <h1 className="text-[1.8rem] text-main-color mb-[2rem]">إبدأ البحث</h1>
 
-        <div className="bg-white py-[2.5rem] px-[1.5rem] flex gap-[1.5rem] shadow-lg rounded-[.3rem] w-full">
+        <div className="bg-white py-[2.5rem] px-[1.5rem] flex flex-col md:flex-row gap-[1.5rem] shadow-lg rounded-[.3rem] w-full">
           <div className="flex-1">
             <h3 className="text-red-500 font-[400] mb-[1.5rem]">
               استخدم كلمة واحدة فقط لنتائج أفضل

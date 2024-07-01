@@ -2,7 +2,7 @@ import React from "react";
 
 const Sec3 = () => {
   return (
-    <section className="max-w-[1300px] mx-auto pt-[5rem] pb-[8rem]">
+    <section className="max-w-[1300px] mx-auto pt-[5rem] pb-[8rem] px-[1rem]">
       <div>
         <h1 className="text-[1.5rem] mb-[1rem]">إستعراض اللوائح</h1>
 

@@ -35,7 +35,7 @@ export default function Form() {
   };
 
   return (
-    <div className="flex flex-col items-center pt-[5rem]">
+    <section className="flex flex-col items-center pt-[5rem] px-[1rem]">
       <h1 className="mb-[1.5rem] text-[2rem] text-main-color font-[700]">
         أدخل بيانات الشركة
       </h1>
@@ -138,6 +138,6 @@ export default function Form() {
           </a>
         </div>
       )}
-    </div>
+    </section>
   );
 }

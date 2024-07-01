@@ -2,7 +2,7 @@ import React from "react";
 
 const Sec1 = () => {
   return (
-    <section className="bg-[#e9ecef] w-full">
+    <section className="bg-[#e9ecef] w-full px-[1rem] text-center">
       <div className="max-w-[1300px] mx-auto flex flex-col items-center pt-[3.5rem] pb-[6rem]">
         <p className="text-[1.6rem] font-[400]">
           اسأل وجاوب وشاركنا معرفتك في منتدى المشتريات الحكومية.
