@@ -55,11 +55,9 @@ export async function POST(req) {
 
   return new NextResponse(newDocBuffer, {
     headers: {
-      "Content-Disposition": `attachment; filename="${companyName}'s Contract.docx"`,
+      "Content-Disposition": `attachment; filename="${companyName}'s IT Contract.docx"`,
       "Content-Type":
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     },
   });
-
-  return new NextResponse(newDocBuffer, { headers });
 }
