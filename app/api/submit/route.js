@@ -53,9 +53,13 @@ export async function POST(req) {
     compression: "DEFLATE",
   });
 
+  const encodedFileName = encodeURIComponent(
+    `${companyName} عقد تقنية المعلومات لشركة.docx`
+  );
+
   return new NextResponse(newDocBuffer, {
     headers: {
-      "Content-Disposition": `attachment; filename="${companyName}'s IT Contract.docx"`,
+      "Content-Disposition": `attachment; filename*=UTF-8''${encodedFileName}`,
       "Content-Type":
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     },
