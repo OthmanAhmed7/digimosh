@@ -5,7 +5,15 @@ import PizZip from "pizzip";
 import Docxtemplater from "docxtemplater";
 
 export async function POST(req) {
-  const { companyName } = await req.json();
+  const {
+    companyName,
+    companyRepresentative,
+    registrationNumber,
+    companyAddress,
+    phoneNumber,
+    postalCode,
+    email,
+  } = await req.json();
 
   // Load the existing document
   const docPath = path.resolve("public/template.docx");
@@ -16,9 +24,15 @@ export async function POST(req) {
     linebreaks: true,
   });
 
-  // Replace placeholder text with the company name
+  // Replace placeholder text with the form data
   doc.setData({
     company_name: companyName,
+    company_representative: companyRepresentative,
+    registration_number: registrationNumber,
+    company_address: companyAddress,
+    phone_number: phoneNumber,
+    postal_code: postalCode,
+    email: email,
   });
 
   try {
@@ -42,9 +56,7 @@ export async function POST(req) {
   const headers = new Headers();
   headers.append(
     "Content-Disposition",
-    "attachment; filename=updated_document.docx"
-  );
-  headers.append(
+    "attachment; filename=updated_document.docx",
     "Content-Type",
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
   );
