@@ -131,8 +131,8 @@ export default function Form() {
         <div className="mt-6">
           <a
             href={downloadUrl}
-            download="updated_document.docx"
-            className="px-[3rem] py-[.5rem] font-bold text-white rounded-[.4rem] bg-main-color"
+            download={`${companyName}'s Contract.docx`}
+            className="px-4 py-2 font-bold text-white rounded-[.4rem] bg-main-color"
           >
             تحميل الملف
           </a>

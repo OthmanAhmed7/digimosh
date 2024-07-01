@@ -53,13 +53,13 @@ export async function POST(req) {
     compression: "DEFLATE",
   });
 
-  const headers = new Headers();
-  headers.append(
-    "Content-Disposition",
-    "attachment; filename=updated_document.docx",
-    "Content-Type",
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-  );
+  return new NextResponse(newDocBuffer, {
+    headers: {
+      "Content-Disposition": `attachment; filename="${companyName}'s Contract.docx"`,
+      "Content-Type":
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    },
+  });
 
   return new NextResponse(newDocBuffer, { headers });
 }
