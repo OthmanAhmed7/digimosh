@@ -6,6 +6,7 @@ import Docxtemplater from "docxtemplater";
 
 export async function POST(req) {
   const {
+    documentTemplate,
     companyName,
     companyRepresentative,
     registrationNumber,
@@ -16,7 +17,7 @@ export async function POST(req) {
   } = await req.json();
 
   // Load the existing document
-  const docPath = path.resolve("public/template.docx");
+  const docPath = path.resolve("public", documentTemplate);
   const docBuffer = fs.readFileSync(docPath);
   const zip = new PizZip(docBuffer);
   const doc = new Docxtemplater(zip, {
@@ -54,7 +55,7 @@ export async function POST(req) {
   });
 
   const encodedFileName = encodeURIComponent(
-    `${companyName} عقد تقنية المعلومات لشركة.docx`
+    `${companyName} لشركة ${documentTemplate}.docx`
   );
 
   return new NextResponse(newDocBuffer, {

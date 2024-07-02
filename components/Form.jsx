@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 export default function Form() {
+  const [documentTemplate, setDocumentTemplate] = useState("template1.docx");
   const [companyName, setCompanyName] = useState("");
   const [companyRepresentative, setCompanyRepresentative] = useState("");
   const [registrationNumber, setRegistrationNumber] = useState("");
@@ -20,6 +21,7 @@ export default function Form() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        documentTemplate,
         companyName,
         companyRepresentative,
         registrationNumber,
@@ -43,6 +45,21 @@ export default function Form() {
         onSubmit={handleSubmit}
         className="flex flex-col items-center w-full"
       >
+        <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
+          <label className="text-main-color">إختر القالب:</label>
+          <select
+            value={documentTemplate}
+            onChange={(e) => setDocumentTemplate(e.target.value)}
+            className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+          >
+            <option value="عقد_تقنية_المعلومات.docx">
+              عقد تقنية المعلومات
+            </option>
+            <option value="عقد_براءة_إختراع.docx">عقد براءة اختراع</option>
+            <option value="عقد_إيجار_ملكية.docx">عقد ايجار ملكية</option>
+          </select>
+        </div>
+
         <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
           <label className="text-main-color">إسم الشركة:</label>
           <input
@@ -131,10 +148,10 @@ export default function Form() {
         <div className="mt-6">
           <a
             href={downloadUrl}
-            download={`${companyName} عقد تقنية المعلومات لشركة.docx`}
+            download={`${companyName} لشركة ${documentTemplate}.docx`}
             className="px-[3rem] py-[.5rem] font-bold text-white rounded-[.4rem] bg-main-color"
           >
-            تحميل الملف
+            تنزيل الملف
           </a>
         </div>
       )}
