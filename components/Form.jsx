@@ -52,6 +52,7 @@ export default function Form() {
             onChange={(e) => setDocumentTemplate(e.target.value)}
             className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
           >
+            <option value="">إختر القالب</option>
             <option value="عقد_تقنية_المعلومات.docx">
               عقد تقنية المعلومات
             </option>
