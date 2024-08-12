@@ -14,6 +14,8 @@ export async function POST(req) {
     phoneNumber,
     postalCode,
     email,
+    includeClause1,
+    clause1Text,
   } = await req.json();
 
   // Load the existing document
@@ -34,6 +36,7 @@ export async function POST(req) {
     phone_number: phoneNumber,
     postal_code: postalCode,
     email: email,
+    clause1: includeClause1 ? clause1Text : "",
   });
 
   try {
@@ -55,7 +58,7 @@ export async function POST(req) {
   });
 
   const encodedFileName = encodeURIComponent(
-    `${companyName} لشركة ${documentTemplate}.docx`
+    `${companyName}_لشركة_${documentTemplate}.docx`
   );
 
   return new NextResponse(newDocBuffer, {

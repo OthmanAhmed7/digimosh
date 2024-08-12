@@ -1,4 +1,4 @@
-"use client"; // This directive is required for Client Components in Next.js
+"use client";
 
 import { useState } from "react";
 
@@ -12,6 +12,10 @@ export default function Form() {
   const [postalCode, setPostalCode] = useState("");
   const [email, setEmail] = useState("");
   const [downloadUrl, setDownloadUrl] = useState("");
+  const [includeClause1, setIncludeClause1] = useState(false);
+  const [clause1Text, setClause1Text] = useState(
+    "ويشار إليهما مجتمعين ب الطرفين أو الطرفان."
+  );
   const [slideNum, setSlideNum] = useState(1);
 
   const handleSubmit = async (e) => {
@@ -30,6 +34,8 @@ export default function Form() {
         phoneNumber,
         postalCode,
         email,
+        includeClause1,
+        clause1Text: includeClause1 ? clause1Text : "",
       }),
     });
     const blob = await res.blob();
@@ -159,6 +165,42 @@ export default function Form() {
                   onChange={(e) => setPostalCode(e.target.value)}
                   className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
                 />
+              </div>
+
+              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
+                <label className="text-main-color">Include Clause 1:</label>
+                <div className="flex items-center gap-[1rem]">
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
+                      name="includeClause1"
+                      value="yes"
+                      checked={includeClause1 === true}
+                      onChange={() => setIncludeClause1(true)}
+                      className="mr-[.5rem]"
+                    />
+                    Yes
+                  </label>
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
+                      name="includeClause1"
+                      value="no"
+                      checked={includeClause1 === false}
+                      onChange={() => setIncludeClause1(false)}
+                      className="mr-[.5rem]"
+                    />
+                    No
+                  </label>
+                </div>
+
+                {includeClause1 && (
+                  <textarea
+                    value={clause1Text}
+                    onChange={(e) => setClause1Text(e.target.value)}
+                    className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                  />
+                )}
               </div>
             </div>
           )}
