@@ -3,14 +3,42 @@
 import { useState } from "react";
 
 export default function Form() {
+  // SEC 1 "TEMPLATE"
   const [documentTemplate, setDocumentTemplate] = useState("template1.docx");
+
+  // SEC 2 "CONTRACT DETAILS"
+  const [projectName, setProjectName] = useState("");
+  const [projectNumber, setProjectNumber] = useState("");
+  const [signatureDate, setSignatureDate] = useState("");
+  const [editingDate, setEditingDate] = useState("");
+  const [contractCity, setContractCity] = useState("");
+  const [contractCountry, setContractCountry] = useState("");
+  const [contractValueNumbers, setContractValueNumbers] = useState("");
+  const [contractValueLetters, setContractValueLetters] = useState("");
+
+  // SEC 3 "FIRST PARTY"
+  const [governmentAgency, setGovernmentAgency] = useState("");
+  const [governmentRepresentativeName, setGovernmentRepresentativeName] =
+    useState("");
+  const [
+    governmentRepresentativePosition,
+    setGovernmentRepresentativePosition,
+  ] = useState("");
+  const [governmentCity, setGovernmentCity] = useState("");
+  const [governmentCountry, setGovernmentCountry] = useState("");
+
+  // SEC 4 "SECOND PARTY"
   const [companyName, setCompanyName] = useState("");
   const [companyRepresentative, setCompanyRepresentative] = useState("");
-  const [registrationNumber, setRegistrationNumber] = useState("");
   const [companyAddress, setCompanyAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [email, setEmail] = useState("");
+  const [registrationNumber, setRegistrationNumber] = useState("");
+
+  // SEC 5 "BUSINESS DETAILS"
+
+  // OTHER
   const [downloadUrl, setDownloadUrl] = useState("");
   const [includeClause1, setIncludeClause1] = useState(false);
   const [clause1Text, setClause1Text] = useState(
@@ -26,7 +54,27 @@ export default function Form() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        // TEMPLATE
         documentTemplate,
+
+        // SEC 1 "CONTRACT DETAILS"
+        projectName,
+        projectNumber,
+        signatureDate,
+        editingDate,
+        contractCity,
+        contractCountry,
+        contractValueNumbers,
+        contractValueLetters,
+
+        // SEC 2 "FIRST PARTY"
+        governmentAgency,
+        governmentRepresentativeName,
+        governmentRepresentativePosition,
+        governmentCity,
+        governmentCountry,
+
+        // SEC3 "SECOND PARTY"
         companyName,
         companyRepresentative,
         registrationNumber,
@@ -34,6 +82,8 @@ export default function Form() {
         phoneNumber,
         postalCode,
         email,
+
+        // SEC 4 "BUSINESS DETAILS"
         includeClause1,
         clause1Text: includeClause1 ? clause1Text : "",
       }),
@@ -50,6 +100,9 @@ export default function Form() {
           onSubmit={handleSubmit}
           className="flex flex-col items-center w-full"
         >
+          {/* ---------------------------------------------------------------
+        -------------------------- TEMPLATE -------------------------------
+        --------------------------------------------------------------- */}
           {slideNum == 1 && (
             <div className="flex flex-col items-center max-w-full">
               <h1 className="mb-[1.5rem] text-[2rem] text-main-color font-[700]">
@@ -76,10 +129,225 @@ export default function Form() {
             </div>
           )}
 
+          {/* ---------------------------------------------------------------
+          ----------------- SEC 1 "CONTRACT DETAILS" ------------------------
+          --------------------------------------------------------------- */}
+
           {slideNum == 2 && (
             <div>
               <h1 className="mb-[1.5rem] text-[2rem] text-main-color font-[700]">
-                بيانات الشركة
+                تفاصيل العقد
+              </h1>
+
+              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
+                <label className="text-main-color">إسم المشروع:</label>
+                <input
+                  type="text"
+                  value={projectName}
+                  placeholder="اسم الشركة"
+                  onChange={(e) => setProjectName(e.target.value)}
+                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                />
+              </div>
+
+              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
+                <label className="text-main-color">رقم العقد:</label>
+                <input
+                  type="text"
+                  value={projectNumber}
+                  placeholder="ممثل الشركة"
+                  onChange={(e) => setProjectNumber(e.target.value)}
+                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                />
+              </div>
+
+              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
+                <label className="text-main-color">تاريخ التوقيع:</label>
+                <input
+                  type="text"
+                  value={signatureDate}
+                  placeholder="عنوان الشركة"
+                  onChange={(e) => setSignatureDate(e.target.value)}
+                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                />
+              </div>
+
+              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
+                <label className="text-main-color">تاريخ التحرير:</label>
+                <input
+                  type="text"
+                  value={editingDate}
+                  placeholder="عنوان الشركة"
+                  onChange={(e) => setEditingDate(e.target.value)}
+                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                />
+              </div>
+
+              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
+                <label className="text-main-color">المدينة:</label>
+                <input
+                  type="text"
+                  value={contractCity}
+                  placeholder="عنوان الشركة"
+                  onChange={(e) => setContractCity(e.target.value)}
+                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                />
+              </div>
+
+              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
+                <label className="text-main-color">الدولة:</label>
+                <input
+                  type="text"
+                  value={contractCountry}
+                  placeholder="عنوان الشركة"
+                  onChange={(e) => setContractCountry(e.target.value)}
+                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                />
+              </div>
+
+              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
+                <label className="text-main-color">قيمة العقد - أرقام:</label>
+                <input
+                  type="text"
+                  value={contractValueNumbers}
+                  placeholder="عنوان الشركة"
+                  onChange={(e) => setContractValueNumbers(e.target.value)}
+                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                />
+              </div>
+
+              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
+                <label className="text-main-color">قيمة العقد - كتابي:</label>
+                <input
+                  type="text"
+                  value={contractValueLetters}
+                  placeholder="عنوان الشركة"
+                  onChange={(e) => setContractValueLetters(e.target.value)}
+                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* ---------------------------------------------------------------
+          ---------------------- SEC 2 "FIRST PARTY" ------------------------
+          --------------------------------------------------------------- */}
+
+          {slideNum == 3 && (
+            <div>
+              <h1 className="mb-[1.5rem] text-[2rem] text-main-color font-[700]">
+                الطرف الأول
+              </h1>
+
+              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
+                <label className="text-main-color">الجهة الحكومية:</label>
+                <input
+                  type="text"
+                  value={governmentAgency}
+                  placeholder="رقم التسجيل"
+                  onChange={(e) => setGovernmentAgency(e.target.value)}
+                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                />
+              </div>
+
+              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
+                <label className="text-main-color">
+                  اسم ممثل الجهة الحكومية:
+                </label>
+                <input
+                  type="email"
+                  value={governmentRepresentativeName}
+                  placeholder="البريد الإلكتروني"
+                  onChange={(e) =>
+                    setGovernmentRepresentativeName(e.target.value)
+                  }
+                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                />
+              </div>
+
+              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
+                <label className="text-main-color">
+                  منصب ممثل الجهة الحكومية:
+                </label>
+                <input
+                  type="tel"
+                  value={governmentRepresentativePosition}
+                  placeholder="رقم الهاتف"
+                  onChange={(e) =>
+                    setGovernmentRepresentativePosition(e.target.value)
+                  }
+                  className="w-full px-[1rem] py-[.5rem] text-right leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                />
+              </div>
+
+              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
+                <label className="text-main-color">المدينة:</label>
+                <input
+                  type="text"
+                  value={governmentCity}
+                  placeholder="الرمز البريدي"
+                  onChange={(e) => setGovernmentCity(e.target.value)}
+                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                />
+              </div>
+
+              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
+                <label className="text-main-color">الدولة:</label>
+                <input
+                  type="text"
+                  value={governmentCountry}
+                  placeholder="الرمز البريدي"
+                  onChange={(e) => setGovernmentCountry(e.target.value)}
+                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                />
+              </div>
+
+              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
+                <label className="text-main-color">Include Clause 1:</label>
+                <div className="flex items-center gap-[1rem]">
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
+                      name="includeClause1"
+                      value="yes"
+                      checked={includeClause1 === true}
+                      onChange={() => setIncludeClause1(true)}
+                      className="mr-[.5rem]"
+                    />
+                    نعم
+                  </label>
+                  <label className="flex items-center">
+                    <input
+                      type="radio"
+                      name="includeClause1"
+                      value="no"
+                      checked={includeClause1 === false}
+                      onChange={() => setIncludeClause1(false)}
+                      className="mr-[.5rem]"
+                    />
+                    لا
+                  </label>
+                </div>
+
+                {includeClause1 && (
+                  <textarea
+                    value={clause1Text}
+                    onChange={(e) => setClause1Text(e.target.value)}
+                    className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                  />
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* ---------------------------------------------------------------
+          --------------------- SEC 3 "SECOND PARTY" ------------------------
+          --------------------------------------------------------------- */}
+
+          {slideNum == 4 && (
+            <div>
+              <h1 className="mb-[1.5rem] text-[2rem] text-main-color font-[700]">
+                الطرف الثاني
               </h1>
 
               <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
@@ -117,95 +385,13 @@ export default function Form() {
             </div>
           )}
 
-          {slideNum == 3 && (
-            <div>
-              <h1 className="mb-[1.5rem] text-[2rem] text-main-color font-[700]">
-                أخري
-              </h1>
+          {/* ---------------------------------------------------------------
+          -------------------- SEC 4 "BUSINESS DETAILS" ---------------------
+          --------------------------------------------------------------- */}
 
-              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
-                <label className="text-main-color">رقم التسجيل:</label>
-                <input
-                  type="text"
-                  value={registrationNumber}
-                  placeholder="رقم التسجيل"
-                  onChange={(e) => setRegistrationNumber(e.target.value)}
-                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
-                />
-              </div>
+          {slideNum == 5 && <div></div>}
 
-              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
-                <label className="text-main-color">البريد الإلكترونى:</label>
-                <input
-                  type="email"
-                  value={email}
-                  placeholder="البريد الإلكتروني"
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
-                />
-              </div>
-
-              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
-                <label className="text-main-color">رقم الهاتف:</label>
-                <input
-                  type="tel"
-                  value={phoneNumber}
-                  placeholder="رقم الهاتف"
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  className="w-full px-[1rem] py-[.5rem] text-right leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
-                />
-              </div>
-
-              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
-                <label className="text-main-color">الرمز البريدي:</label>
-                <input
-                  type="text"
-                  value={postalCode}
-                  placeholder="الرمز البريدي"
-                  onChange={(e) => setPostalCode(e.target.value)}
-                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
-                />
-              </div>
-
-              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
-                <label className="text-main-color">Include Clause 1:</label>
-                <div className="flex items-center gap-[1rem]">
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      name="includeClause1"
-                      value="yes"
-                      checked={includeClause1 === true}
-                      onChange={() => setIncludeClause1(true)}
-                      className="mr-[.5rem]"
-                    />
-                    Yes
-                  </label>
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      name="includeClause1"
-                      value="no"
-                      checked={includeClause1 === false}
-                      onChange={() => setIncludeClause1(false)}
-                      className="mr-[.5rem]"
-                    />
-                    No
-                  </label>
-                </div>
-
-                {includeClause1 && (
-                  <textarea
-                    value={clause1Text}
-                    onChange={(e) => setClause1Text(e.target.value)}
-                    className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
-                  />
-                )}
-              </div>
-            </div>
-          )}
-
-          {slideNum == 3 && (
+          {slideNum == 5 && (
             <button
               type="submit"
               className="px-[3rem] py-[.5rem] font-bold text-white bg-main-color rounded-[.4rem]"
@@ -216,7 +402,7 @@ export default function Form() {
         </form>
 
         <div className="flex items-center justify-between">
-          {slideNum < 3 && (
+          {slideNum < 5 && (
             <button
               onClick={() => {
                 setSlideNum(slideNum + 1);
