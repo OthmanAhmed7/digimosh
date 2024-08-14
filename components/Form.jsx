@@ -10,7 +10,11 @@ export default function Form() {
   const [projectName, setProjectName] = useState("");
   const [projectNumber, setProjectNumber] = useState("");
   const [signatureDate, setSignatureDate] = useState("");
+  const [signatureDay, setSignatureDay] = useState("");
+  const [signatureDisplayedDate, setSignatureDisplayedDate] = useState("");
   const [editingDate, setEditingDate] = useState("");
+  const [editingDay, setEditingDay] = useState("");
+  const [editingDisplayedDate, setEditingDisplayedDate] = useState("");
   const [contractCity, setContractCity] = useState("");
   const [contractCountry, setContractCountry] = useState("");
   const [contractValueNumbers, setContractValueNumbers] = useState("");
@@ -46,6 +50,71 @@ export default function Form() {
   );
   const [slideNum, setSlideNum] = useState(1);
 
+  const convertToArabicNumbers = (input) => {
+    const easternArabicNumerals = [
+      "٠",
+      "١",
+      "٢",
+      "٣",
+      "٤",
+      "٥",
+      "٦",
+      "٧",
+      "٨",
+      "٩",
+    ];
+
+    return input.replace(/[0-9]/g, (d) => easternArabicNumerals[d]);
+  };
+
+  const handelSignatureDateChange = (e) => {
+    const selectedDate = e.target.value;
+    setSignatureDate(selectedDate);
+
+    // Convert the selected date to Arabic numerals
+    const arabicDate = convertToArabicNumbers(selectedDate);
+    setSignatureDisplayedDate(arabicDate);
+
+    // Determine the day of the week in Arabic
+    const date = new Date(selectedDate);
+    const dayNames = [
+      "الأحد",
+      "الإثنين",
+      "الثلاثاء",
+      "الأربعاء",
+      "الخميس",
+      "الجمعة",
+      "السبت",
+    ];
+    let dayName = dayNames[date.getDay()];
+
+    setSignatureDay(dayName);
+  };
+
+  const handelEditingDateChange = (e) => {
+    const selectedDate = e.target.value;
+    setEditingDate(selectedDate);
+
+    // Convert the selected date to Arabic numerals
+    const arabicDate = convertToArabicNumbers(selectedDate);
+    setEditingDisplayedDate(arabicDate);
+
+    // Determine the day of the week in Arabic
+    const date = new Date(selectedDate);
+    const dayNames = [
+      "الأحد",
+      "الإثنين",
+      "الثلاثاء",
+      "الأربعاء",
+      "الخميس",
+      "الجمعة",
+      "السبت",
+    ];
+    let dayName = dayNames[date.getDay()];
+
+    setEditingDay(dayName);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await fetch("/api/submit", {
@@ -61,6 +130,7 @@ export default function Form() {
         projectName,
         projectNumber,
         signatureDate,
+        signatureDay,
         editingDate,
         contractCity,
         contractCountry,
@@ -104,27 +174,30 @@ export default function Form() {
         -------------------------- TEMPLATE -------------------------------
         --------------------------------------------------------------- */}
           {slideNum == 1 && (
-            <div className="flex flex-col items-center max-w-full">
+            <div className="flex flex-col items-center justify-center w-full">
               <h1 className="mb-[1.5rem] text-[2rem] text-main-color font-[700]">
                 نوع العقد
               </h1>
 
-              <div className="flex flex-col w-full max-w-full px-[3rem] gap-[.3rem]">
-                {/* <label className="text-main-color">إختر القالب:</label> */}
-                <select
-                  value={documentTemplate}
-                  onChange={(e) => setDocumentTemplate(e.target.value)}
-                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
-                >
-                  <option value="">إختر القالب</option>
-                  <option value="عقد_تقنية_المعلومات.docx">
-                    عقد تقنية المعلومات
-                  </option>
-                  <option value="عقد_براءة_إختراع.docx">
-                    عقد براءة اختراع
-                  </option>
-                  <option value="عقد_إيجار_ملكية.docx">عقد ايجار ملكية</option>
-                </select>
+              <div className="w-[70%] mt-[1.5rem]">
+                <div className="flex flex-col w-full max-w-full gap-[.3rem]">
+                  <select
+                    value={documentTemplate}
+                    onChange={(e) => setDocumentTemplate(e.target.value)}
+                    className="w-full py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                  >
+                    <option value="">إختر القالب</option>
+                    <option value="عقد_تقنية_المعلومات.docx">
+                      عقد تقنية المعلومات
+                    </option>
+                    <option value="عقد_براءة_إختراع.docx">
+                      عقد براءة اختراع
+                    </option>
+                    <option value="عقد_إيجار_ملكية.docx">
+                      عقد ايجار ملكية
+                    </option>
+                  </select>
+                </div>
               </div>
             </div>
           )}
@@ -134,97 +207,143 @@ export default function Form() {
           --------------------------------------------------------------- */}
 
           {slideNum == 2 && (
-            <div>
+            <div className="flex flex-col items-center justify-center w-full">
               <h1 className="mb-[1.5rem] text-[2rem] text-main-color font-[700]">
                 تفاصيل العقد
               </h1>
 
-              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
-                <label className="text-main-color">إسم المشروع:</label>
-                <input
-                  type="text"
-                  value={projectName}
-                  placeholder="اسم الشركة"
-                  onChange={(e) => setProjectName(e.target.value)}
-                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
-                />
-              </div>
+              <div className="w-[70%] mt-[1.5rem]">
+                <div className="flex flex-col w-full gap-[.3rem]">
+                  <label className="text-main-color">إسم المشروع:</label>
+                  <input
+                    type="text"
+                    value={projectName}
+                    placeholder="اسم المشروع وفقا لمنصة إعتماد"
+                    onChange={(e) => setProjectName(e.target.value)}
+                    className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                  />
+                </div>
 
-              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
-                <label className="text-main-color">رقم العقد:</label>
-                <input
-                  type="text"
-                  value={projectNumber}
-                  placeholder="ممثل الشركة"
-                  onChange={(e) => setProjectNumber(e.target.value)}
-                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
-                />
-              </div>
+                <div className="flex flex-col w-full gap-[.3rem]">
+                  <label className="text-main-color">رقم العقد:</label>
+                  <input
+                    type="text"
+                    value={projectNumber}
+                    placeholder="رقم العقد وفقا لمنصة إعتماد"
+                    onChange={(e) => setProjectNumber(e.target.value)}
+                    className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                  />
+                </div>
 
-              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
-                <label className="text-main-color">تاريخ التوقيع:</label>
-                <input
-                  type="text"
-                  value={signatureDate}
-                  placeholder="عنوان الشركة"
-                  onChange={(e) => setSignatureDate(e.target.value)}
-                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
-                />
-              </div>
+                <div className="flex items-center gap-[1.5rem]">
+                  <div className="flex flex-col w-full gap-[.3rem]">
+                    <label className="text-main-color">تاريخ التوقيع:</label>
+                    <input
+                      type="date"
+                      value={signatureDate}
+                      placeholder="تاريخ توقيع العقد"
+                      onChange={handelSignatureDateChange}
+                      className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                    />
+                  </div>
 
-              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
-                <label className="text-main-color">تاريخ التحرير:</label>
-                <input
-                  type="text"
-                  value={editingDate}
-                  placeholder="عنوان الشركة"
-                  onChange={(e) => setEditingDate(e.target.value)}
-                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
-                />
-              </div>
+                  {signatureDay && (
+                    <div className="flex flex-col w-full gap-[.3rem]">
+                      <label className="text-main-color">اليوم:</label>
+                      <p>{signatureDay}</p>
+                    </div>
+                  )}
 
-              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
-                <label className="text-main-color">المدينة:</label>
-                <input
-                  type="text"
-                  value={contractCity}
-                  placeholder="عنوان الشركة"
-                  onChange={(e) => setContractCity(e.target.value)}
-                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
-                />
-              </div>
+                  {signatureDisplayedDate && (
+                    <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
+                      <label className="text-main-color">
+                        تاريخ التوقيع بالأرقام العربية:
+                      </label>
+                      <p>{signatureDisplayedDate}</p>
+                    </div>
+                  )}
+                </div>
 
-              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
-                <label className="text-main-color">الدولة:</label>
-                <input
-                  type="text"
-                  value={contractCountry}
-                  placeholder="عنوان الشركة"
-                  onChange={(e) => setContractCountry(e.target.value)}
-                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
-                />
-              </div>
+                <div className="flex items-center gap-[1.5rem]">
+                  <div className="flex flex-col w-full gap-[.3rem]">
+                    <label className="text-main-color">تاريخ التحرير:</label>
+                    <input
+                      type="date"
+                      value={editingDate}
+                      placeholder="تاريخ توقيع العقد"
+                      onChange={handelEditingDateChange}
+                      className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                    />
+                  </div>
 
-              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
-                <label className="text-main-color">قيمة العقد - أرقام:</label>
-                <input
-                  type="text"
-                  value={contractValueNumbers}
-                  placeholder="عنوان الشركة"
-                  onChange={(e) => setContractValueNumbers(e.target.value)}
-                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
-                />
-              </div>
+                  {editingDay && (
+                    <div className="flex flex-col w-full gap-[.3rem]">
+                      <label className="text-main-color">اليوم:</label>
+                      <p>{editingDay}</p>
+                    </div>
+                  )}
 
-              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
-                <label className="text-main-color">قيمة العقد - كتابي:</label>
-                <input
-                  type="text"
-                  value={contractValueLetters}
-                  placeholder="عنوان الشركة"
-                  onChange={(e) => setContractValueLetters(e.target.value)}
-                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
-                />
+                  {editingDisplayedDate && (
+                    <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
+                      <label className="text-main-color">
+                        تاريخ التحرير بالأرقام العربية:
+                      </label>
+                      <p>{editingDisplayedDate}</p>
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex items-center gap-[1.5rem]">
+                  <div className="flex flex-col w-full gap-[.3rem]">
+                    <label className="text-main-color">المدينة:</label>
+                    <input
+                      type="text"
+                      value={contractCity}
+                      placeholder="المدينة"
+                      onChange={(e) => setContractCity(e.target.value)}
+                      className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                    />
+                  </div>
+
+                  <div className="flex flex-col w-full gap-[.3rem]">
+                    <label className="text-main-color">الدولة:</label>
+                    <input
+                      type="text"
+                      value={contractCountry}
+                      placeholder="الدولة"
+                      onChange={(e) => setContractCountry(e.target.value)}
+                      className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-[1.5rem]">
+                  <div className="flex flex-col w-full gap-[.3rem]">
+                    <label className="text-main-color">
+                      قيمة العقد - أرقام:
+                    </label>
+                    <input
+                      type="text"
+                      value={contractValueNumbers}
+                      placeholder="القيمة المالية للعقد - أرقام"
+                      onChange={(e) => setContractValueNumbers(e.target.value)}
+                      className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                    />
+                  </div>
+
+                  <div className="flex flex-col w-full gap-[.3rem]">
+                    <label className="text-main-color">
+                      قيمة العقد - كتابي:
+                    </label>
+                    <input
+                      type="text"
+                      value={contractValueLetters}
+                      placeholder="القيمة المالية للعقد - كتابي"
+                      onChange={(e) => setContractValueLetters(e.target.value)}
+                      className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -234,108 +353,110 @@ export default function Form() {
           --------------------------------------------------------------- */}
 
           {slideNum == 3 && (
-            <div>
+            <div className="flex flex-col items-center justify-center w-full">
               <h1 className="mb-[1.5rem] text-[2rem] text-main-color font-[700]">
                 الطرف الأول
               </h1>
 
-              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
-                <label className="text-main-color">الجهة الحكومية:</label>
-                <input
-                  type="text"
-                  value={governmentAgency}
-                  placeholder="رقم التسجيل"
-                  onChange={(e) => setGovernmentAgency(e.target.value)}
-                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
-                />
-              </div>
-
-              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
-                <label className="text-main-color">
-                  اسم ممثل الجهة الحكومية:
-                </label>
-                <input
-                  type="email"
-                  value={governmentRepresentativeName}
-                  placeholder="البريد الإلكتروني"
-                  onChange={(e) =>
-                    setGovernmentRepresentativeName(e.target.value)
-                  }
-                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
-                />
-              </div>
-
-              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
-                <label className="text-main-color">
-                  منصب ممثل الجهة الحكومية:
-                </label>
-                <input
-                  type="tel"
-                  value={governmentRepresentativePosition}
-                  placeholder="رقم الهاتف"
-                  onChange={(e) =>
-                    setGovernmentRepresentativePosition(e.target.value)
-                  }
-                  className="w-full px-[1rem] py-[.5rem] text-right leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
-                />
-              </div>
-
-              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
-                <label className="text-main-color">المدينة:</label>
-                <input
-                  type="text"
-                  value={governmentCity}
-                  placeholder="الرمز البريدي"
-                  onChange={(e) => setGovernmentCity(e.target.value)}
-                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
-                />
-              </div>
-
-              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
-                <label className="text-main-color">الدولة:</label>
-                <input
-                  type="text"
-                  value={governmentCountry}
-                  placeholder="الرمز البريدي"
-                  onChange={(e) => setGovernmentCountry(e.target.value)}
-                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
-                />
-              </div>
-
-              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
-                <label className="text-main-color">Include Clause 1:</label>
-                <div className="flex items-center gap-[1rem]">
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      name="includeClause1"
-                      value="yes"
-                      checked={includeClause1 === true}
-                      onChange={() => setIncludeClause1(true)}
-                      className="mr-[.5rem]"
-                    />
-                    نعم
-                  </label>
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      name="includeClause1"
-                      value="no"
-                      checked={includeClause1 === false}
-                      onChange={() => setIncludeClause1(false)}
-                      className="mr-[.5rem]"
-                    />
-                    لا
-                  </label>
-                </div>
-
-                {includeClause1 && (
-                  <textarea
-                    value={clause1Text}
-                    onChange={(e) => setClause1Text(e.target.value)}
+              <div className="w-[70%] mt-[1.5rem]">
+                <div className="flex flex-col w-full gap-[.3rem]">
+                  <label className="text-main-color">الجهة الحكومية:</label>
+                  <input
+                    type="text"
+                    value={governmentAgency}
+                    placeholder="اسم الجهة الحكومية"
+                    onChange={(e) => setGovernmentAgency(e.target.value)}
                     className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
                   />
-                )}
+                </div>
+
+                <div className="flex flex-col w-full gap-[.3rem]">
+                  <label className="text-main-color">
+                    اسم ممثل الجهة الحكومية:
+                  </label>
+                  <input
+                    type="text"
+                    value={governmentRepresentativeName}
+                    placeholder="اسم ممثل الجهة الحكومية"
+                    onChange={(e) =>
+                      setGovernmentRepresentativeName(e.target.value)
+                    }
+                    className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                  />
+                </div>
+
+                <div className="flex flex-col w-full gap-[.3rem]">
+                  <label className="text-main-color">
+                    منصب ممثل الجهة الحكومية:
+                  </label>
+                  <input
+                    type="text"
+                    value={governmentRepresentativePosition}
+                    placeholder="منصب ممثل الجهة الحكومية"
+                    onChange={(e) =>
+                      setGovernmentRepresentativePosition(e.target.value)
+                    }
+                    className="w-full px-[1rem] py-[.5rem] text-right leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                  />
+                </div>
+
+                <div className="flex flex-col w-full gap-[.3rem]">
+                  <label className="text-main-color">المدينة:</label>
+                  <input
+                    type="text"
+                    value={governmentCity}
+                    placeholder="المدينة"
+                    onChange={(e) => setGovernmentCity(e.target.value)}
+                    className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                  />
+                </div>
+
+                <div className="flex flex-col w-full gap-[.3rem]">
+                  <label className="text-main-color">الدولة:</label>
+                  <input
+                    type="text"
+                    value={governmentCountry}
+                    placeholder="الدولة"
+                    onChange={(e) => setGovernmentCountry(e.target.value)}
+                    className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                  />
+                </div>
+
+                <div className="flex flex-col w-full gap-[.3rem]">
+                  <label className="text-main-color">Include Clause 1:</label>
+                  <div className="flex items-center gap-[1rem]">
+                    <label className="flex items-center">
+                      <input
+                        type="radio"
+                        name="includeClause1"
+                        value="yes"
+                        checked={includeClause1 === true}
+                        onChange={() => setIncludeClause1(true)}
+                        className="mr-[.5rem]"
+                      />
+                      نعم
+                    </label>
+                    <label className="flex items-center">
+                      <input
+                        type="radio"
+                        name="includeClause1"
+                        value="no"
+                        checked={includeClause1 === false}
+                        onChange={() => setIncludeClause1(false)}
+                        className="mr-[.5rem]"
+                      />
+                      لا
+                    </label>
+                  </div>
+
+                  {includeClause1 && (
+                    <textarea
+                      value={clause1Text}
+                      onChange={(e) => setClause1Text(e.target.value)}
+                      className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                    />
+                  )}
+                </div>
               </div>
             </div>
           )}
@@ -345,42 +466,44 @@ export default function Form() {
           --------------------------------------------------------------- */}
 
           {slideNum == 4 && (
-            <div>
+            <div className="flex flex-col items-center justify-center w-full">
               <h1 className="mb-[1.5rem] text-[2rem] text-main-color font-[700]">
                 الطرف الثاني
               </h1>
 
-              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
-                <label className="text-main-color">إسم الشركة:</label>
-                <input
-                  type="text"
-                  value={companyName}
-                  placeholder="اسم الشركة"
-                  onChange={(e) => setCompanyName(e.target.value)}
-                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
-                />
-              </div>
+              <div className="w-[70%] mt-[1.5rem]">
+                <div className="flex flex-col w-full gap-[.3rem]">
+                  <label className="text-main-color">إسم الشركة:</label>
+                  <input
+                    type="text"
+                    value={companyName}
+                    placeholder="اسم الشركة"
+                    onChange={(e) => setCompanyName(e.target.value)}
+                    className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                  />
+                </div>
 
-              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
-                <label className="text-main-color">ممثل الشركة:</label>
-                <input
-                  type="text"
-                  value={companyRepresentative}
-                  placeholder="ممثل الشركة"
-                  onChange={(e) => setCompanyRepresentative(e.target.value)}
-                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
-                />
-              </div>
+                <div className="flex flex-col w-full gap-[.3rem]">
+                  <label className="text-main-color">ممثل الشركة:</label>
+                  <input
+                    type="text"
+                    value={companyRepresentative}
+                    placeholder="ممثل الشركة"
+                    onChange={(e) => setCompanyRepresentative(e.target.value)}
+                    className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                  />
+                </div>
 
-              <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
-                <label className="text-main-color">عنوان الشركة:</label>
-                <input
-                  type="text"
-                  value={companyAddress}
-                  placeholder="عنوان الشركة"
-                  onChange={(e) => setCompanyAddress(e.target.value)}
-                  className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
-                />
+                <div className="flex flex-col w-full gap-[.3rem]">
+                  <label className="text-main-color">عنوان الشركة:</label>
+                  <input
+                    type="text"
+                    value={companyAddress}
+                    placeholder="عنوان الشركة"
+                    onChange={(e) => setCompanyAddress(e.target.value)}
+                    className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                  />
+                </div>
               </div>
             </div>
           )}
@@ -389,9 +512,9 @@ export default function Form() {
           -------------------- SEC 4 "BUSINESS DETAILS" ---------------------
           --------------------------------------------------------------- */}
 
-          {slideNum == 5 && <div></div>}
+          {/* {slideNum == 5 && <div></div>} */}
 
-          {slideNum == 5 && (
+          {slideNum == 4 && (
             <button
               type="submit"
               className="px-[3rem] py-[.5rem] font-bold text-white bg-main-color rounded-[.4rem]"
@@ -401,8 +524,8 @@ export default function Form() {
           )}
         </form>
 
-        <div className="flex items-center justify-between">
-          {slideNum < 5 && (
+        <div className="flex items-center justify-between mt-[3rem]">
+          {slideNum < 4 && (
             <button
               onClick={() => {
                 setSlideNum(slideNum + 1);
