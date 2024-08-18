@@ -13,7 +13,13 @@ export async function POST(req) {
     projectName,
     projectNumber,
     signatureDate,
+    signatureDay,
+    signatureHijriDate,
+    signatureArabicDate,
     editingDate,
+    editingDay,
+    editingArabicDate,
+    editingHijriDate,
     contractCity,
     contractCountry,
     contractValueNumbers,
@@ -28,14 +34,22 @@ export async function POST(req) {
 
     // SEC3 "SECOND PARTY"
     companyName,
-    companyRepresentative,
-    registrationNumber,
     companyAddress,
+    companyCity,
+    companyCountry,
+    companyRepresentativeName,
+    companyRepresentativeNationality,
+    companyRepresentativeID,
+    nationalIDNumber,
+    residenceNumber,
+    passportNumber,
     phoneNumber,
     postalCode,
+    postOfficeCode,
     email,
 
     // SEC 4 "BUSINESS DETAILS"
+    bullets,
     includeClause1,
     clause1Text,
   } = await req.json();
@@ -55,7 +69,13 @@ export async function POST(req) {
     project_name: projectName,
     project_number: projectNumber,
     signature_date: signatureDate,
+    signature_day: signatureDay,
+    signature_arabic_date: signatureArabicDate,
+    signature_hijri_date: signatureHijriDate,
     editing_date: editingDate,
+    editing_day: editingDay,
+    editing_arabic_date: editingArabicDate,
+    editing_hijri_date: editingHijriDate,
     contract_city: contractCity,
     contract_country: contractCountry,
     contract_value_numbers: contractValueNumbers,
@@ -70,13 +90,23 @@ export async function POST(req) {
 
     // SEC 3 "SECOND PARTY"
     company_name: companyName,
-    company_representative: companyRepresentative,
-    registration_number: registrationNumber,
     company_address: companyAddress,
+    company_city: companyCity,
+    company_country: companyCountry,
+    company_representative_name: companyRepresentativeName,
+    company_representative_nationality: companyRepresentativeNationality,
+    company_representative_ID: companyRepresentativeID,
+    national_ID_number: nationalIDNumber,
+    residence_number: residenceNumber,
+    passport_number: passportNumber,
     phone_number: phoneNumber,
     postal_code: postalCode,
+    post_office_code: postOfficeCode,
     email: email,
     clause1: includeClause1 ? clause1Text : "",
+
+    // SEC 4 "BUSINESS DETAILS"
+    bullets: bullets.join("\n"),
   });
 
   try {
