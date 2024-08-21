@@ -57,6 +57,30 @@ export default function Form() {
   // SEC 4 "BUSINESS DETAILS"
   const [bullets, setBullets] = useState([]);
   const [currentBullet, setCurrentBullet] = useState("");
+  const [shortWorkDescription, setShortWorkDescription] = useState("");
+  const [workDescription, setWorkDescription] = useState("");
+  const [implementationDuration, setImplementationDuration] = useState("");
+  const [implementationDurationType, setImplementationDurationType] =
+    useState("");
+  const [businessStartDate, setBusinessStartDate] = useState("");
+  const [businessStartDateCustomize, setBusinessStartDateCustomize] =
+    useState("");
+  const [
+    businessStartArabicDateCustomize,
+    setBusinessStartArabicDateCustomize,
+  ] = useState("");
+  const [businessStartHijriDateCustomize, setBusinessStartHijriDateCustomize] =
+    useState("");
+  const [businessStartDateSignature, setBusinessStartDateSignature] =
+    useState(signatureDate);
+  const [businessStartDaySignature, setBusinessStartDaySignature] =
+    useState(signatureDay);
+  const [
+    businessStartArabicDateSignature,
+    setBusinessStartArabicDateSignature,
+  ] = useState(signatureArabicDate);
+  const [businessStartHijriDateSignature, setBusinessStartHijriDateSignature] =
+    useState(signatureHijriDate);
 
   // OTHER
   const [downloadUrl, setDownloadUrl] = useState("");
@@ -86,10 +110,12 @@ export default function Form() {
   const handelSignatureDateChange = (e) => {
     const selectedDate = e.target.value;
     setSignatureDate(selectedDate);
+    setBusinessStartDateSignature(selectedDate);
 
     // Convert the selected date to Arabic numerals
     const arabicDate = convertToArabicNumbers(selectedDate);
     setSignatureArabicDate(arabicDate);
+    setBusinessStartArabicDateSignature(arabicDate);
 
     // Determine the day of the week in Arabic
     const date = new Date(selectedDate);
@@ -105,6 +131,7 @@ export default function Form() {
     let dayName = dayNames[date.getDay()];
 
     setSignatureDay(dayName);
+    setBusinessStartDaySignature(dayName);
 
     // Convert the Gregorian date to Hijri date
     const hijriDate = moment(selectedDate, "YYYY-MM-DD").format(
@@ -112,6 +139,7 @@ export default function Form() {
     );
     const arabicHijriDate = convertToArabicNumbers(hijriDate);
     setSignatureHijriDate(arabicHijriDate);
+    setBusinessStartHijriDateSignature(arabicHijriDate);
   };
 
   const handelEditingDateChange = (e) => {
@@ -144,6 +172,38 @@ export default function Form() {
     const arabicHijriDate = convertToArabicNumbers(hijriDate);
 
     setEditingHijriDate(arabicHijriDate);
+  };
+
+  const handelBusinessStartDateCustomize = (e) => {
+    const selectedDate = e.target.value;
+    setBusinessStartDateCustomize(selectedDate);
+
+    // Convert the selected date to Arabic numerals
+    const arabicDate = convertToArabicNumbers(selectedDate);
+    setBusinessStartArabicDateCustomize(arabicDate);
+
+    // Determine the day of the week in Arabic
+    const date = new Date(selectedDate);
+    const dayNames = [
+      "الأحد",
+      "الإثنين",
+      "الثلاثاء",
+      "الأربعاء",
+      "الخميس",
+      "الجمعة",
+      "السبت",
+    ];
+    let dayName = dayNames[date.getDay()];
+
+    setBusinessStartDateCustomize(dayName);
+
+    // Convert the Gregorian date to Hijri date
+    const hijriDate = moment(selectedDate, "YYYY-MM-DD").format(
+      "iYYYY/iMM/iDD"
+    );
+    const arabicHijriDate = convertToArabicNumbers(hijriDate);
+
+    setBusinessStartHijriDateCustomize(arabicHijriDate);
   };
 
   const handleAddBullet = () => {
@@ -205,6 +265,14 @@ export default function Form() {
 
         // SEC 4 "BUSINESS DETAILS"
         bullets,
+        shortWorkDescription,
+        workDescription,
+        implementationDuration,
+        implementationDurationType,
+        businessStartArabicDateCustomize,
+        businessStartHijriDateCustomize,
+        businessStartArabicDateSignature,
+        businessStartHijriDateSignature,
         includeClause1,
         clause1Text: includeClause1 ? clause1Text : "",
       }),
@@ -319,9 +387,7 @@ export default function Form() {
                       <label className="text-main-color">
                         تاريخ التوقيع بالتقويم الهجري:
                       </label>
-                      <p style={{ direction: "rtl", textAlign: "right" }}>
-                        {signatureHijriDate}
-                      </p>
+                      <p>{signatureHijriDate}</p>
                     </div>
                   )}
                 </div>
@@ -359,9 +425,7 @@ export default function Form() {
                       <label className="text-main-color">
                         تاريخ التوقيع بالتقويم الهجري:
                       </label>
-                      <p style={{ direction: "rtl", textAlign: "right" }}>
-                        {editingHijriDate}
-                      </p>
+                      <p>{editingHijriDate}</p>
                     </div>
                   )}
                 </div>
@@ -396,7 +460,7 @@ export default function Form() {
                       قيمة العقد - أرقام:
                     </label>
                     <input
-                      type="text"
+                      type="number"
                       value={contractValueNumbers}
                       placeholder="القيمة المالية للعقد - أرقام"
                       onChange={(e) => setContractValueNumbers(e.target.value)}
@@ -580,7 +644,7 @@ export default function Form() {
                     </label>
                     <input
                       type="text"
-                      value={companyName}
+                      value={companyCity}
                       placeholder="اسم المدينة التي أسست فيها المتعاقد"
                       onChange={(e) => setCompanyCity(e.target.value)}
                       className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
@@ -593,7 +657,7 @@ export default function Form() {
                     </label>
                     <input
                       type="text"
-                      value={companyName}
+                      value={companyCountry}
                       placeholder="اسم الدولة التي أسست فيها المتعاقد"
                       onChange={(e) => setCompanyCountry(e.target.value)}
                       className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
@@ -751,7 +815,27 @@ export default function Form() {
                 تفاصيل الأعمال
               </h1>
 
-              <div className="flex flex-col w-[70%]">
+              <div className="flex flex-col w-[70%] gap-[.3rem]">
+                <label className="text-main-color">وصف موجز للأعمال:</label>
+                <textarea
+                  onChange={(e) => {
+                    setShortWorkDescription(e.target.value);
+                  }}
+                  className="w-full px-[1rem] py-[1.5rem] mb-[1rem] leading-tight text-gray-700 border rounded shadow outline-none"
+                ></textarea>
+              </div>
+
+              <div className="flex flex-col w-[70%] gap-[.3rem]">
+                <label className="text-main-color">وصف الأعمال:</label>
+                <textarea
+                  onChange={(e) => {
+                    setWorkDescription(e.target.value);
+                  }}
+                  className="w-full px-[1rem] py-[3.5rem] mb-[1rem] leading-tight text-gray-700 border rounded shadow outline-none"
+                ></textarea>
+              </div>
+
+              <div className="flex flex-col w-[70%] gap-[.3rem] mb-[.5rem]">
                 <label className="text-main-color">إضافة بنود:</label>
                 <div className="flex items-center gap-[1rem]">
                   <input
@@ -762,6 +846,7 @@ export default function Form() {
                     className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none"
                   />
                   <button
+                    type="button"
                     onClick={handleAddBullet}
                     className="px-4 py-2 text-white rounded-lg bg-main-color"
                   >
@@ -770,13 +855,146 @@ export default function Form() {
                 </div>
               </div>
 
-              <ul className="w-[70%] text-right list-disc list-inside">
+              <ul className="w-[70%] text-right list-disc list-inside mb-[1rem]">
                 {bullets.map((bullet, index) => (
                   <li key={index} className="text-gray-700">
                     {bullet}
                   </li>
                 ))}
               </ul>
+
+              <div className="flex gap-[1.5rem] items-center justify-center w-[70%]">
+                <div className="flex flex-col w-full gap-[.3rem]">
+                  <label className="text-main-color">مدة إنتهاء الأعمال:</label>
+                  <select
+                    value={implementationDurationType}
+                    onChange={(e) =>
+                      setImplementationDurationType(e.target.value)
+                    }
+                    className="w-full py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                  >
+                    <option value="">إختر من التالي</option>
+                    <option value="يوم">يوم </option>
+                    <option value="أسبوع">أسبوع</option>
+                    <option value="شهر">شهر</option>
+                    <option value="سنة">سنة</option>
+                  </select>
+                </div>
+
+                {implementationDurationType && (
+                  <div className="flex flex-col w-full gap-[.3rem]">
+                    <label className="text-main-color">المدة:</label>
+                    <input
+                      type="number"
+                      value={implementationDuration}
+                      placeholder="مدة تنفيذ الأعمال"
+                      onChange={(e) =>
+                        setImplementationDuration(e.target.value)
+                      }
+                      className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                    />
+                  </div>
+                )}
+              </div>
+
+              <div className="flex flex-col items-center justify-center w-[70%]">
+                <div className="flex flex-col w-full gap-[.3rem]">
+                  <label className="text-main-color">
+                    تاريخ البدء بتنفيذ الأعمال:
+                  </label>
+                  <select
+                    value={businessStartDate}
+                    onChange={(e) => setBusinessStartDate(e.target.value)}
+                    className="w-full py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                  >
+                    <option value="">إختر من التالي</option>
+                    <option value="تاريخ معين">تاريخ معين </option>
+                    <option value="تاريخ توقيع العقد">تاريخ توقيع العقد</option>
+                  </select>
+                </div>
+
+                <div className="flex flex-col w-full gap-[.3rem]">
+                  {businessStartDate == "تاريخ معين" && (
+                    <div className="flex items-center gap-[1.5rem]">
+                      <div className="flex flex-col w-full gap-[.3rem]">
+                        <label className="text-main-color">
+                          تاريخ بدء تنفيذ الأعمال:
+                        </label>
+                        <input
+                          type="date"
+                          value={businessStartDateCustomize}
+                          placeholder="تاريخ توقيع العقد"
+                          onChange={handelBusinessStartDateCustomize}
+                          className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                        />
+                      </div>
+
+                      {businessStartDateCustomize && (
+                        <div className="flex flex-col w-full gap-[.3rem]">
+                          <label className="text-main-color">اليوم:</label>
+                          <p>{businessStartDateCustomize}</p>
+                        </div>
+                      )}
+
+                      {businessStartArabicDateCustomize && (
+                        <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
+                          <label className="text-main-color">
+                            التاريخ الميلادي لبدء تنفيذ الأعمال:
+                          </label>
+                          <p>{businessStartArabicDateCustomize}</p>
+                        </div>
+                      )}
+
+                      {businessStartHijriDateCustomize && (
+                        <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
+                          <label className="text-main-color">
+                            التاريخ الهجري لبدء تنفيذ الأعمال:
+                          </label>
+                          <p>{businessStartHijriDateCustomize}</p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex flex-col w-full gap-[.3rem]">
+                  {businessStartDate == "تاريخ توقيع العقد" && (
+                    <div className="flex items-center gap-[1.5rem]">
+                      <div className="flex flex-col w-full gap-[.3rem]">
+                        <label className="text-main-color">
+                          تاريخ بدء تنفيذ الأعمال:
+                        </label>
+                        <p>{businessStartDateSignature}</p>
+                      </div>
+
+                      {businessStartDaySignature && (
+                        <div className="flex flex-col w-full gap-[.3rem]">
+                          <label className="text-main-color">اليوم:</label>
+                          <p>{businessStartDaySignature}</p>
+                        </div>
+                      )}
+
+                      {businessStartArabicDateSignature && (
+                        <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
+                          <label className="text-main-color">
+                            التاريخ الميلادي لبدء تنفيذ الأعمال:
+                          </label>
+                          <p>{businessStartArabicDateSignature}</p>
+                        </div>
+                      )}
+
+                      {businessStartHijriDateSignature && (
+                        <div className="flex flex-col w-full max-w-sm gap-[.3rem]">
+                          <label className="text-main-color">
+                            التاريخ الهجري لبدء تنفيذ الأعمال:
+                          </label>
+                          <p>{businessStartHijriDateSignature}</p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           )}
 
@@ -819,7 +1037,7 @@ export default function Form() {
             <div className="mt-6">
               <a
                 href={downloadUrl}
-                download={`${companyName} لشركة ${documentTemplate}.docx`}
+                download={`${companyName}_لشركة_${documentTemplate}.docx`}
                 className="px-[3rem] py-[.5rem] font-bold text-white rounded-[.4rem] bg-main-color"
               >
                 تنزيل الملف

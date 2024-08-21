@@ -50,6 +50,14 @@ export async function POST(req) {
 
     // SEC 4 "BUSINESS DETAILS"
     bullets,
+    shortWorkDescription,
+    workDescription,
+    implementationDuration,
+    implementationDurationType,
+    businessStartArabicDateCustomize,
+    businessStartHijriDateCustomize,
+    businessStartArabicDateSignature,
+    businessStartHijriDateSignature,
     includeClause1,
     clause1Text,
   } = await req.json();
@@ -107,6 +115,14 @@ export async function POST(req) {
 
     // SEC 4 "BUSINESS DETAILS"
     bullets: bullets.join("\n"),
+    short_work_description: shortWorkDescription,
+    work_description: workDescription,
+    implementation_duration: implementationDuration,
+    implementation_duration_type: implementationDurationType,
+    business_start_arabic_date_customize: businessStartArabicDateCustomize,
+    business_start_hijri_date_customize: businessStartHijriDateCustomize,
+    business_start_arabic_date_signature: businessStartArabicDateSignature,
+    business_start_hijri_date_signature: businessStartHijriDateSignature,
   });
 
   try {
