@@ -24,6 +24,7 @@ export async function POST(req) {
     contractCountry,
     contractValueNumbers,
     contractValueLetters,
+    currencyUsed,
 
     // SEC 2 "FIRST PARTY"
     governmentAgency,
@@ -58,6 +59,8 @@ export async function POST(req) {
     businessStartHijriDateCustomize,
     businessStartArabicDateSignature,
     businessStartHijriDateSignature,
+    partyCount,
+    additionalParties,
     includeClause1,
     clause1Text,
   } = await req.json();
@@ -88,6 +91,7 @@ export async function POST(req) {
     contract_country: contractCountry,
     contract_value_numbers: contractValueNumbers,
     contract_value_letters: contractValueLetters,
+    currency_used: currencyUsed,
 
     // SEC 2 "FIRST PARTY"
     government_agency: governmentAgency,
@@ -123,6 +127,9 @@ export async function POST(req) {
     business_start_hijri_date_customize: businessStartHijriDateCustomize,
     business_start_arabic_date_signature: businessStartArabicDateSignature,
     business_start_hijri_date_signature: businessStartHijriDateSignature,
+    party_count: partyCount ? partyCount.toLocaleString("ar-EG") : "٦",
+    additional_parties:
+      additionalParties.length > 0 ? additionalParties.join(" ، و ") : "",
   });
 
   try {

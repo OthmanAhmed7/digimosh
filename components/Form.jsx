@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import moment from "moment-hijri";
+import { FaRegQuestionCircle } from "react-icons/fa";
 
 export default function Form() {
   // "TEMPLATE"
@@ -19,9 +20,15 @@ export default function Form() {
   const [editingArabicDate, setEditingArabicDate] = useState("");
   const [editingHijriDate, setEditingHijriDate] = useState("");
   const [contractCity, setContractCity] = useState("");
+  const [contractCityDetails, setContractCityDetails] = useState("");
   const [contractCountry, setContractCountry] = useState("");
   const [contractValueNumbers, setContractValueNumbers] = useState("");
   const [contractValueLetters, setContractValueLetters] = useState("");
+  const [currencyUsed, setCurrencyUsed] = useState("");
+  const [
+    contractorRetentionPeriodOfContractDocuments,
+    setContractorRetentionPeriodOfContractDocuments,
+  ] = useState("");
 
   // SEC 2 "FIRST PARTY"
   const [governmentAgency, setGovernmentAgency] = useState("");
@@ -81,6 +88,10 @@ export default function Form() {
   ] = useState(signatureArabicDate);
   const [businessStartHijriDateSignature, setBusinessStartHijriDateSignature] =
     useState(signatureHijriDate);
+  const [addMoreParties, setAddMoreParties] = useState(false);
+  const [partyCount, setPartyCount] = useState(6);
+  const [additionalParties, setAdditionalParties] = useState([]);
+  const [newPartyName, setNewPartyName] = useState("");
 
   // OTHER
   const [downloadUrl, setDownloadUrl] = useState("");
@@ -213,6 +224,22 @@ export default function Form() {
     }
   };
 
+  const handleAddParty = () => {
+    if (newPartyName.trim() !== "") {
+      setAdditionalParties([...additionalParties, newPartyName.trim()]);
+      setPartyCount(partyCount + 1);
+      setNewPartyName("");
+    }
+  };
+
+  const handleAddMoreParties = (e) => {
+    setAddMoreParties(e.target.value === "yes");
+  };
+
+  const arabicNumber = (number) => {
+    return number.toLocaleString("ar-EG");
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await fetch("/api/submit", {
@@ -239,6 +266,7 @@ export default function Form() {
         contractCountry,
         contractValueNumbers,
         contractValueLetters,
+        currencyUsed,
 
         // SEC 2 "FIRST PARTY"
         governmentAgency,
@@ -273,6 +301,8 @@ export default function Form() {
         businessStartHijriDateCustomize,
         businessStartArabicDateSignature,
         businessStartHijriDateSignature,
+        partyCount,
+        additionalParties,
         includeClause1,
         clause1Text: includeClause1 ? clause1Text : "",
       }),
@@ -432,7 +462,10 @@ export default function Form() {
 
                 <div className="flex items-center gap-[1.5rem]">
                   <div className="flex flex-col w-full gap-[.3rem]">
-                    <label className="text-main-color">المدينة:</label>
+                    <div>
+                      <label className="text-main-color">المدينة:</label>
+                      {/* <FaRegQuestionCircle /> */}
+                    </div>
                     <input
                       type="text"
                       value={contractCity}
@@ -477,6 +510,17 @@ export default function Form() {
                       value={contractValueLetters}
                       placeholder="القيمة المالية للعقد - كتابي"
                       onChange={(e) => setContractValueLetters(e.target.value)}
+                      className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
+                    />
+                  </div>
+
+                  <div className="flex flex-col w-full gap-[.3rem]">
+                    <label className="text-main-color">العملة المستخدمة:</label>
+                    <input
+                      type="text"
+                      value={currencyUsed}
+                      placeholder="الريال السعودي"
+                      onChange={(e) => setCurrencyUsed(e.target.value)}
                       className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
                     />
                   </div>
@@ -992,6 +1036,52 @@ export default function Form() {
                         </div>
                       )}
                     </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex flex-col w-[70%] gap-[.3rem]">
+                <label className="text-main-color">
+                  هل تريد إضافة المزيد من الأطراف؟
+                </label>
+                <select
+                  onChange={handleAddMoreParties}
+                  className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="no">لا</option>
+                  <option value="yes">نعم</option>
+                </select>
+
+                {addMoreParties && (
+                  <div className="flex flex-col w-full gap-[.3rem] mt-[1rem]">
+                    <label className="text-main-color">إضافة طرف جديد:</label>
+                    <div className="flex items-center justify-center gap-[1rem]">
+                      <input
+                        type="text"
+                        value={newPartyName}
+                        onChange={(e) => setNewPartyName(e.target.value)}
+                        className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none"
+                        placeholder="أدخل اسم الطرف"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleAddParty}
+                        className="px-4 py-2 text-white rounded-lg bg-main-color"
+                      >
+                        أضف
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                <div className="mt-6">
+                  <p className="text-lg font-medium text-gray-700">
+                    عدد الأطراف: {arabicNumber(partyCount)}
+                  </p>
+                  {additionalParties.length > 0 && (
+                    <p className="text-lg font-medium text-gray-700">
+                      الأطراف المضافة: {additionalParties.join(" و ")}
+                    </p>
                   )}
                 </div>
               </div>
