@@ -20,8 +20,9 @@ export default function Form() {
   const [editingArabicDate, setEditingArabicDate] = useState("");
   const [editingHijriDate, setEditingHijriDate] = useState("");
   const [contractCity, setContractCity] = useState("");
-  const [contractCityDetails, setContractCityDetails] = useState("");
+  const [contractCityDetails, setContractCityDetails] = useState(false);
   const [contractCountry, setContractCountry] = useState("");
+  const [contractCountryDetails, setContractCountryDetails] = useState("");
   const [contractValueNumbers, setContractValueNumbers] = useState("");
   const [contractValueLetters, setContractValueLetters] = useState("");
   const [currencyUsed, setCurrencyUsed] = useState("");
@@ -39,7 +40,9 @@ export default function Form() {
     setGovernmentRepresentativePosition,
   ] = useState("");
   const [governmentCity, setGovernmentCity] = useState("");
+  const [governmentCityDetails, setGovernmentCityDetails] = useState("");
   const [governmentCountry, setGovernmentCountry] = useState("");
+  const [governmentCountryDetails, setGovernmentCountryDetails] = useState("");
 
   // SEC 3 "SECOND PARTY"
   const [companyName, setCompanyName] = useState("");
@@ -462,10 +465,32 @@ export default function Form() {
 
                 <div className="flex items-center gap-[1.5rem]">
                   <div className="flex flex-col w-full gap-[.3rem]">
-                    <div>
+                    <div className="flex items-center gap-[.3rem] relative">
                       <label className="text-main-color">المدينة:</label>
-                      {/* <FaRegQuestionCircle /> */}
+                      <FaRegQuestionCircle
+                        onMouseEnter={() => {
+                          setContractCityDetails(!contractCityDetails);
+                        }}
+                        onMouseLeave={() => {
+                          setContractCityDetails(!contractCityDetails);
+                        }}
+                        className="text-[.8rem] text-main-color relative z-30"
+                      />
+                      <p
+                        onMouseEnter={() => {
+                          setContractCityDetails(true);
+                        }}
+                        onMouseLeave={() => {
+                          setContractCityDetails(false);
+                        }}
+                        className={`absolute text-main-color py-[.3rem] pr-[1.3rem] pl-[.3rem] max-w-[15rem] border border-main-color rounded-[.3rem] top-[-.4rem] right-[3rem] shadow-lg bg-white ${
+                          contractCityDetails ? "" : "hidden"
+                        }`}
+                      >
+                        اسم المدينة التى تم توقيع العقد فيها
+                      </p>
                     </div>
+
                     <input
                       type="text"
                       value={contractCity}
@@ -476,7 +501,32 @@ export default function Form() {
                   </div>
 
                   <div className="flex flex-col w-full gap-[.3rem]">
-                    <label className="text-main-color">الدولة:</label>
+                    <div className="flex items-center gap-[.3rem] relative">
+                      <label className="text-main-color">الدولة:</label>
+                      <FaRegQuestionCircle
+                        onMouseEnter={() => {
+                          setContractCountryDetails(!contractCountryDetails);
+                        }}
+                        onMouseLeave={() => {
+                          setContractCountryDetails(!contractCountryDetails);
+                        }}
+                        className="text-[.8rem] text-main-color relative z-30"
+                      />
+                      <p
+                        onMouseEnter={() => {
+                          setContractCountryDetails(true);
+                        }}
+                        onMouseLeave={() => {
+                          setContractCountryDetails(false);
+                        }}
+                        className={`absolute text-main-color py-[.3rem] pr-[1.3rem] pl-[.3rem] max-w-[15rem] border border-main-color rounded-[.3rem] top-[-.4rem] right-[2.6rem] shadow-lg bg-white ${
+                          contractCountryDetails ? "" : "hidden"
+                        }`}
+                      >
+                        اسم الدولة التى تم توقيع العقد فيها
+                      </p>
+                    </div>
+
                     <input
                       type="text"
                       value={contractCountry}
@@ -584,7 +634,31 @@ export default function Form() {
 
                 <div className="flex items-center justify-center gap-[1.5rem]">
                   <div className="flex flex-col w-full gap-[.3rem]">
-                    <label className="text-main-color">المدينة:</label>
+                    <div className="flex items-center gap-[.3rem] relative">
+                      <label className="text-main-color">المدينة:</label>
+                      <FaRegQuestionCircle
+                        onMouseEnter={() => {
+                          setGovernmentCityDetails(!governmentCityDetails);
+                        }}
+                        onMouseLeave={() => {
+                          setGovernmentCityDetails(!governmentCityDetails);
+                        }}
+                        className="text-[.8rem] text-main-color relative z-30"
+                      />
+                      <p
+                        onMouseEnter={() => {
+                          setGovernmentCityDetails(true);
+                        }}
+                        onMouseLeave={() => {
+                          setGovernmentCityDetails(false);
+                        }}
+                        className={`absolute text-main-color py-[.3rem] pr-[1.3rem] pl-[.3rem] max-w-[15rem] border border-main-color rounded-[.3rem] top-[-.4rem] right-[3rem] shadow-lg bg-white ${
+                          governmentCityDetails ? "" : "hidden"
+                        }`}
+                      >
+                        اسم المدينة المتواجد بها الجهة الحكومية
+                      </p>
+                    </div>
                     <input
                       type="text"
                       value={governmentCity}
@@ -595,7 +669,35 @@ export default function Form() {
                   </div>
 
                   <div className="flex flex-col w-full gap-[.3rem]">
-                    <label className="text-main-color">الدولة:</label>
+                    <div className="flex items-center gap-[.3rem] relative">
+                      <label className="text-main-color">الدولة:</label>
+                      <FaRegQuestionCircle
+                        onMouseEnter={() => {
+                          setGovernmentCountryDetails(
+                            !governmentCountryDetails
+                          );
+                        }}
+                        onMouseLeave={() => {
+                          setGovernmentCountryDetails(
+                            !governmentCountryDetails
+                          );
+                        }}
+                        className="text-[.8rem] text-main-color relative z-30"
+                      />
+                      <p
+                        onMouseEnter={() => {
+                          setGovernmentCountryDetails(true);
+                        }}
+                        onMouseLeave={() => {
+                          setGovernmentCountryDetails(false);
+                        }}
+                        className={`absolute text-main-color py-[.3rem] pr-[1.3rem] pl-[.3rem] max-w-[15rem] border border-main-color rounded-[.3rem] top-[-.4rem] right-[2.6rem] shadow-lg bg-white ${
+                          governmentCountryDetails ? "" : "hidden"
+                        }`}
+                      >
+                        اسم الدولة المتواجد بها الجهة الحكومية
+                      </p>
+                    </div>
                     <input
                       type="text"
                       value={governmentCountry}
@@ -739,7 +841,9 @@ export default function Form() {
 
                 <div className="flex gap-[1.5rem] items-center justify-center">
                   <div className="flex flex-col w-full max-w-full gap-[.3rem]">
-                    <label>بطاقة هوية ممثل المتعاقد</label>
+                    <label className="text-main-color">
+                      بطاقة هوية ممثل المتعاقد
+                    </label>
                     <select
                       value={companyRepresentativeID}
                       onChange={(e) =>
