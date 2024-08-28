@@ -47,7 +47,9 @@ export default function Form() {
   // SEC 3 "SECOND PARTY"
   const [companyName, setCompanyName] = useState("");
   const [companyCity, setCompanyCity] = useState("");
+  const [companyCityDetails, setCompanyCityDetails] = useState("");
   const [companyCountry, setCompanyCountry] = useState("");
+  const [companyCountryDetails, setCompanyCountryDetails] = useState("");
   const [companyAddress, setCompanyAddress] = useState("");
   const [companyRepresentativeName, setCompanyRepresentativeName] =
     useState("");
@@ -66,9 +68,13 @@ export default function Form() {
 
   // SEC 4 "BUSINESS DETAILS"
   const [bullets, setBullets] = useState([]);
+  const [bulletsDetails, setBulletsDetails] = useState("");
   const [currentBullet, setCurrentBullet] = useState("");
   const [shortWorkDescription, setShortWorkDescription] = useState("");
+  const [shortWorkDescriptionDetails, setShortWorkDescriptionDetails] =
+    useState("");
   const [workDescription, setWorkDescription] = useState("");
+  const [workDescriptionDetails, setWorkDescriptionDetails] = useState("");
   const [implementationDuration, setImplementationDuration] = useState("");
   const [implementationDurationType, setImplementationDurationType] =
     useState("");
@@ -92,6 +98,7 @@ export default function Form() {
   const [businessStartHijriDateSignature, setBusinessStartHijriDateSignature] =
     useState(signatureHijriDate);
   const [addMoreParties, setAddMoreParties] = useState(false);
+  const [addMorePartiesDetails, setAddMorePartiesDetails] = useState("");
   const [partyCount, setPartyCount] = useState(6);
   const [additionalParties, setAdditionalParties] = useState([]);
   const [newPartyName, setNewPartyName] = useState("");
@@ -483,7 +490,7 @@ export default function Form() {
                         onMouseLeave={() => {
                           setContractCityDetails(false);
                         }}
-                        className={`absolute text-main-color py-[.3rem] pr-[1.3rem] pl-[.3rem] max-w-[15rem] border border-main-color rounded-[.3rem] top-[-.4rem] right-[3rem] shadow-lg bg-white ${
+                        className={`absolute text-main-color py-[.3rem] pr-[1.3rem] pl-[.3rem] max-w-[15rem] border border-main-color rounded-[.3rem] top-[-.2rem] text-sm right-[3rem] shadow-lg bg-white ${
                           contractCityDetails ? "" : "hidden"
                         }`}
                       >
@@ -519,7 +526,7 @@ export default function Form() {
                         onMouseLeave={() => {
                           setContractCountryDetails(false);
                         }}
-                        className={`absolute text-main-color py-[.3rem] pr-[1.3rem] pl-[.3rem] max-w-[15rem] border border-main-color rounded-[.3rem] top-[-.4rem] right-[2.6rem] shadow-lg bg-white ${
+                        className={`absolute text-main-color py-[.3rem] pr-[1.3rem] pl-[.3rem] max-w-[15rem] border border-main-color rounded-[.3rem] top-[-.2rem] text-sm right-[2.6rem] shadow-lg bg-white ${
                           contractCountryDetails ? "" : "hidden"
                         }`}
                       >
@@ -652,7 +659,7 @@ export default function Form() {
                         onMouseLeave={() => {
                           setGovernmentCityDetails(false);
                         }}
-                        className={`absolute text-main-color py-[.3rem] pr-[1.3rem] pl-[.3rem] max-w-[15rem] border border-main-color rounded-[.3rem] top-[-.4rem] right-[3rem] shadow-lg bg-white ${
+                        className={`absolute text-main-color py-[.3rem] pr-[1.3rem] pl-[.3rem] max-w-[15rem] border border-main-color rounded-[.3rem] top-[-.2rem] text-sm right-[3rem] shadow-lg bg-white ${
                           governmentCityDetails ? "" : "hidden"
                         }`}
                       >
@@ -691,7 +698,7 @@ export default function Form() {
                         onMouseLeave={() => {
                           setGovernmentCountryDetails(false);
                         }}
-                        className={`absolute text-main-color py-[.3rem] pr-[1.3rem] pl-[.3rem] max-w-[15rem] border border-main-color rounded-[.3rem] top-[-.4rem] right-[2.6rem] shadow-lg bg-white ${
+                        className={`absolute text-main-color py-[.3rem] pr-[1.3rem] pl-[.3rem] max-w-[15rem] border border-main-color rounded-[.3rem] top-[-.2rem] text-sm right-[2.6rem] shadow-lg bg-white ${
                           governmentCountryDetails ? "" : "hidden"
                         }`}
                       >
@@ -785,9 +792,31 @@ export default function Form() {
 
                 <div className="flex items-center justify-center gap-[1.5rem]">
                   <div className="flex flex-col w-full gap-[.3rem]">
-                    <label className="text-main-color">
-                      مدينة تأسيس المتعاقد:
-                    </label>
+                    <div className="flex items-center gap-[.3rem] relative">
+                      <label className="text-main-color">مدينة المتعاقد:</label>
+                      <FaRegQuestionCircle
+                        onMouseEnter={() => {
+                          setCompanyCityDetails(!companyCityDetails);
+                        }}
+                        onMouseLeave={() => {
+                          setCompanyCityDetails(!companyCityDetails);
+                        }}
+                        className="text-[.8rem] text-main-color relative z-30"
+                      />
+                      <p
+                        onMouseEnter={() => {
+                          setCompanyCityDetails(true);
+                        }}
+                        onMouseLeave={() => {
+                          setCompanyCityDetails(false);
+                        }}
+                        className={`absolute text-main-color py-[.3rem] pr-[1.3rem] pl-[.3rem] max-w-[15rem] border border-main-color rounded-[.3rem] top-[-.2rem] text-sm right-[6.1rem] shadow-lg bg-white ${
+                          companyCityDetails ? "" : "hidden"
+                        }`}
+                      >
+                        اسم المدينة الكائن بها المتعاقد
+                      </p>
+                    </div>
                     <input
                       type="text"
                       value={companyCity}
@@ -798,9 +827,31 @@ export default function Form() {
                   </div>
 
                   <div className="flex flex-col w-full gap-[.3rem]">
-                    <label className="text-main-color">
-                      دولة تأسيس المتعاقد:
-                    </label>
+                    <div className="flex items-center gap-[.3rem] relative">
+                      <label className="text-main-color">دولة المتعاقد:</label>
+                      <FaRegQuestionCircle
+                        onMouseEnter={() => {
+                          setCompanyCountryDetails(!companyCountryDetails);
+                        }}
+                        onMouseLeave={() => {
+                          setCompanyCountryDetails(!companyCountryDetails);
+                        }}
+                        className="text-[.8rem] text-main-color relative z-30"
+                      />
+                      <p
+                        onMouseEnter={() => {
+                          setCompanyCountryDetails(true);
+                        }}
+                        onMouseLeave={() => {
+                          setCompanyCountryDetails(false);
+                        }}
+                        className={`absolute text-main-color py-[.3rem] pr-[1.3rem] pl-[.3rem] max-w-[15rem] border border-main-color rounded-[.3rem] top-[-.2rem] text-sm right-[5.7rem] shadow-lg bg-white ${
+                          companyCountryDetails ? "" : "hidden"
+                        }`}
+                      >
+                        اسم الدولة الكائن بها المتعاقد
+                      </p>
+                    </div>
                     <input
                       type="text"
                       value={companyCountry}
@@ -964,7 +1015,35 @@ export default function Form() {
               </h1>
 
               <div className="flex flex-col w-[70%] gap-[.3rem]">
-                <label className="text-main-color">وصف موجز للأعمال:</label>
+                <div className="flex items-center gap-[.3rem] relative">
+                  <label className="text-main-color">وصف موجز للأعمال:</label>
+                  <FaRegQuestionCircle
+                    onMouseEnter={() => {
+                      setShortWorkDescriptionDetails(
+                        !shortWorkDescriptionDetails
+                      );
+                    }}
+                    onMouseLeave={() => {
+                      setShortWorkDescriptionDetails(
+                        !shortWorkDescriptionDetails
+                      );
+                    }}
+                    className="text-[.8rem] text-main-color relative z-30"
+                  />
+                  <p
+                    onMouseEnter={() => {
+                      setShortWorkDescriptionDetails(true);
+                    }}
+                    onMouseLeave={() => {
+                      setShortWorkDescriptionDetails(false);
+                    }}
+                    className={`absolute text-main-color py-[.3rem] pr-[1.3rem] pl-[.3rem] max-w-[35rem] text-sm border border-main-color rounded-[.3rem] top-[-.3rem] right-[8.2rem] shadow-lg bg-white ${
+                      shortWorkDescriptionDetails ? "" : "hidden"
+                    }`}
+                  >
+                    يتم كتابة وصف موجز للعملية يناسب سياق التمهيد
+                  </p>
+                </div>
                 <textarea
                   onChange={(e) => {
                     setShortWorkDescription(e.target.value);
@@ -974,7 +1053,33 @@ export default function Form() {
               </div>
 
               <div className="flex flex-col w-[70%] gap-[.3rem]">
-                <label className="text-main-color">وصف الأعمال:</label>
+                <div className="flex items-center gap-[.3rem] relative">
+                  <label className="text-main-color">وصف الأعمال:</label>
+                  <FaRegQuestionCircle
+                    onMouseEnter={() => {
+                      setWorkDescriptionDetails(!workDescriptionDetails);
+                    }}
+                    onMouseLeave={() => {
+                      setWorkDescriptionDetails(!workDescriptionDetails);
+                    }}
+                    className="text-[.8rem] text-main-color relative z-30"
+                  />
+                  <p
+                    onMouseEnter={() => {
+                      setWorkDescriptionDetails(true);
+                    }}
+                    onMouseLeave={() => {
+                      setWorkDescriptionDetails(false);
+                    }}
+                    className={`absolute text-main-color py-[.3rem] pr-[1.3rem] pl-[.3rem] max-w-[35rem] text-sm border border-main-color rounded-[.3rem] top-[-.2rem] right-[5.9rem] shadow-lg bg-white ${
+                      workDescriptionDetails ? "" : "hidden"
+                    }`}
+                  >
+                    يتم كتابة وصف شامل للأعمال التى سيقوم المتعاقد بتنفيذها
+                    وفقاً للشروط والمواصفات ووثائق العقد المبينة فى البند رقم 2
+                    من هذا العقد
+                  </p>
+                </div>
                 <textarea
                   onChange={(e) => {
                     setWorkDescription(e.target.value);
@@ -984,7 +1089,37 @@ export default function Form() {
               </div>
 
               <div className="flex flex-col w-[70%] gap-[.3rem] mb-[.5rem]">
-                <label className="text-main-color">إضافة بنود:</label>
+                <div className="flex items-center gap-[.3rem] relative">
+                  <label className="text-main-color">إضافة وثائق:</label>
+                  <FaRegQuestionCircle
+                    onMouseEnter={() => {
+                      setBulletsDetails(!bulletsDetails);
+                    }}
+                    onMouseLeave={() => {
+                      setBulletsDetails(!bulletsDetails);
+                    }}
+                    className="text-[.8rem] text-main-color relative z-30"
+                  />
+                  <p
+                    onMouseEnter={() => {
+                      setBulletsDetails(true);
+                    }}
+                    onMouseLeave={() => {
+                      setBulletsDetails(false);
+                    }}
+                    className={`absolute text-main-color py-[.3rem] text-sm pr-[1.3rem] pl-[.3rem] max-w-[35rem] border border-main-color rounded-[.3rem] top-[-.2rem] right-[5rem] shadow-lg bg-white ${
+                      bulletsDetails ? "" : "hidden"
+                    }`}
+                  >
+                    هناك وثائق أساسية لا بد من توافرها و يمكنك إضافة المزيد حسب
+                    الحاجه و الإتفاق <br />
+                    الوثائق الأساسية هى: <br />
+                    - وثيقة العقد الأساسية <br />
+                    - شروط العقد <br />
+                    - الشروط المالية <br />
+                    - نطاق العمل المفصل <br />
+                  </p>
+                </div>
                 <div className="flex items-center gap-[1rem]">
                   <input
                     type="text"
@@ -1145,9 +1280,34 @@ export default function Form() {
               </div>
 
               <div className="flex flex-col w-[70%] gap-[.3rem]">
-                <label className="text-main-color">
-                  هل تريد إضافة المزيد من الأطراف؟
-                </label>
+                <div className="flex items-center gap-[.3rem] relative">
+                  <label className="text-main-color">
+                    هل تريد إضافة المزيد من الجهات؟
+                  </label>
+                  <FaRegQuestionCircle
+                    onMouseEnter={() => {
+                      setAddMorePartiesDetails(!addMorePartiesDetails);
+                    }}
+                    onMouseLeave={() => {
+                      setAddMorePartiesDetails(!addMorePartiesDetails);
+                    }}
+                    className="text-[.8rem] text-main-color relative z-30"
+                  />
+                  <p
+                    onMouseEnter={() => {
+                      setAddMorePartiesDetails(true);
+                    }}
+                    onMouseLeave={() => {
+                      setAddMorePartiesDetails(false);
+                    }}
+                    className={`absolute text-main-color py-[.3rem] text-sm pr-[1.3rem] pl-[.3rem] max-w-[35rem] border border-main-color rounded-[.3rem] top-[-.3rem] right-[13.6rem] shadow-lg bg-white ${
+                      addMorePartiesDetails ? "" : "hidden"
+                    }`}
+                  >
+                    عند الإنتهاء يتم إرسال 6 نسخ على الأقل إالى 6 جهات محددة فى
+                    العقد و يمكنك إضافة جهات أخري
+                  </p>
+                </div>
                 <select
                   onChange={handleAddMoreParties}
                   className="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -1158,7 +1318,7 @@ export default function Form() {
 
                 {addMoreParties && (
                   <div className="flex flex-col w-full gap-[.3rem] mt-[1rem]">
-                    <label className="text-main-color">إضافة طرف جديد:</label>
+                    <label className="text-main-color">إضافة جهة جديد:</label>
                     <div className="flex items-center justify-center gap-[1rem]">
                       <input
                         type="text"
@@ -1178,13 +1338,13 @@ export default function Form() {
                   </div>
                 )}
 
-                <div className="mt-6">
-                  <p className="text-lg font-medium text-gray-700">
-                    عدد الأطراف: {arabicNumber(partyCount)}
+                <div>
+                  <p className="text-gray-700">
+                    عدد الجهات: {arabicNumber(partyCount)}
                   </p>
                   {additionalParties.length > 0 && (
                     <p className="text-lg font-medium text-gray-700">
-                      الأطراف المضافة: {additionalParties.join(" و ")}
+                      الجهات المضافة: {additionalParties.join(" و ")}
                     </p>
                   )}
                 </div>
