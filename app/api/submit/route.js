@@ -74,6 +74,9 @@ export async function POST(req) {
     linebreaks: true,
   });
 
+  // Format bullets for Word Document
+  const formattedBullets = bullets.map((bullet) => ({ bullet }));
+
   // Replace placeholder text with the form data
   doc.setData({
     // SEC 1 "CONTRACT DETAILS"
@@ -118,7 +121,7 @@ export async function POST(req) {
     clause1: includeClause1 ? clause1Text : "",
 
     // SEC 4 "BUSINESS DETAILS"
-    bullets: bullets.join("\n"),
+    bullets: formattedBullets,
     short_work_description: shortWorkDescription,
     work_description: workDescription,
     implementation_duration: implementationDuration,
