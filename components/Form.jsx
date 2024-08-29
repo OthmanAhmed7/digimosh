@@ -334,11 +334,11 @@ export default function Form() {
         --------------------------------------------------------------- */}
           {slideNum == 1 && (
             <div className="flex flex-col items-center justify-center w-full">
-              <h1 className="mb-[1.5rem] text-[2rem] text-main-color font-[700]">
+              <h1 className="md:mb-[1.5rem] mb-[.5rem] text-[2rem] text-main-color font-[700]">
                 نوع العقد
               </h1>
 
-              <div className="w-[70%] mt-[1.5rem]">
+              <div className="md:w-[70%] w-full mt-[1.5rem]">
                 <div className="flex flex-col w-full max-w-full gap-[.3rem]">
                   <select
                     value={documentTemplate}
@@ -367,11 +367,11 @@ export default function Form() {
 
           {slideNum == 2 && (
             <div className="flex flex-col items-center justify-center w-full">
-              <h1 className="mb-[1.5rem] text-[2rem] text-main-color font-[700]">
+              <h1 className="md:mb-[1.5rem] mb-[.5rem] text-[2rem] text-main-color font-[700]">
                 تفاصيل العقد
               </h1>
 
-              <div className="w-[70%] mt-[1.5rem]">
+              <div className="md:w-[70%] w-full mt-[1.5rem]">
                 <div className="flex flex-col w-full gap-[.3rem]">
                   <label className="text-main-color">إسم المشروع:</label>
                   <input
@@ -470,7 +470,7 @@ export default function Form() {
                   )}
                 </div>
 
-                <div className="flex items-center gap-[1.5rem]">
+                <div className="flex flex-col md:flex-row items-center md:gap-[1.5rem]">
                   <div className="flex flex-col w-full gap-[.3rem]">
                     <div className="flex items-center gap-[.3rem] relative">
                       <label className="text-main-color">المدينة:</label>
@@ -544,7 +544,7 @@ export default function Form() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-[1.5rem]">
+                <div className="flex flex-col lg:flex-row items-center lg:gap-[1.5rem]">
                   <div className="flex flex-col w-full gap-[.3rem]">
                     <label className="text-main-color">
                       قيمة العقد - أرقام:
@@ -592,12 +592,12 @@ export default function Form() {
 
           {slideNum == 3 && (
             <div className="flex flex-col items-center justify-center w-full">
-              <h1 className="mb-[1.5rem] text-[2rem] text-main-color font-[700]">
+              <h1 className="md:mb-[1.5rem] mb-[.5rem] text-[2rem] text-main-color font-[700] text-center">
                 بيانات الطرف الأول{" "}
                 <small className="text-sm">(الجهة الحكومية)</small>
               </h1>
 
-              <div className="w-[70%] mt-[1.5rem]">
+              <div className="md:w-[70%] w-full mt-[1.5rem]">
                 <div className="flex flex-col w-full gap-[.3rem]">
                   <label className="text-main-color">الجهة الحكومية:</label>
                   <input
@@ -639,7 +639,7 @@ export default function Form() {
                   />
                 </div>
 
-                <div className="flex items-center justify-center gap-[1.5rem]">
+                <div className="flex flex-col md:flex-row items-center justify-center md:gap-[1.5rem]">
                   <div className="flex flex-col w-full gap-[.3rem]">
                     <div className="flex items-center gap-[.3rem] relative">
                       <label className="text-main-color">المدينة:</label>
@@ -663,7 +663,7 @@ export default function Form() {
                           governmentCityDetails ? "" : "hidden"
                         }`}
                       >
-                        اسم المدينة المتواجد بها الجهة الحكومية
+                        اسم المدينة الكائن بها الجهة الحكومية
                       </p>
                     </div>
                     <input
@@ -702,7 +702,7 @@ export default function Form() {
                           governmentCountryDetails ? "" : "hidden"
                         }`}
                       >
-                        اسم الدولة المتواجد بها الجهة الحكومية
+                        اسم الدولة الكائن بها الجهة الحكومية
                       </p>
                     </div>
                     <input
@@ -715,7 +715,7 @@ export default function Form() {
                   </div>
                 </div>
 
-                <div className="flex flex-col w-full gap-[.3rem]">
+                {/* <div className="flex flex-col w-full gap-[.3rem]">
                   <label className="text-main-color">Include Clause 1:</label>
                   <div className="flex items-center gap-[1rem]">
                     <label className="flex items-center">
@@ -749,7 +749,7 @@ export default function Form() {
                       className="w-full px-[1rem] py-[.5rem] leading-tight text-gray-700 border rounded shadow outline-none mb-[1.5rem]"
                     />
                   )}
-                </div>
+                </div> */}
               </div>
             </div>
           )}
@@ -760,12 +760,12 @@ export default function Form() {
 
           {slideNum == 4 && (
             <div className="flex flex-col items-center justify-center w-full">
-              <h1 className="mb-[1.5rem] text-[2rem] text-main-color font-[700]">
+              <h1 className="md:mb-[1.5rem] mb-[.5rem] text-[2rem] text-main-color font-[700] text-center">
                 بيانات الطرف الثاني{" "}
                 <small className="text-sm">(المتعاقد)</small>
               </h1>
 
-              <div className="w-[70%] mt-[1.5rem]">
+              <div className="md:w-[70%] w-full mt-[1.5rem]">
                 <div className="flex flex-col w-full gap-[.3rem]">
                   <label className="text-main-color">إسم المتعاقد:</label>
                   <input
@@ -790,7 +790,7 @@ export default function Form() {
                   />
                 </div>
 
-                <div className="flex items-center justify-center gap-[1.5rem]">
+                <div className="flex flex-col md:flex-row items-center justify-center md:gap-[1.5rem]">
                   <div className="flex flex-col w-full gap-[.3rem]">
                     <div className="flex items-center gap-[.3rem] relative">
                       <label className="text-main-color">مدينة المتعاقد:</label>
@@ -953,7 +953,7 @@ export default function Form() {
                   )}
                 </div>
 
-                <div className="flex gap-[1.5rem] items-center justify-center">
+                <div className="flex flex-col lg:flex-row lg:gap-[1.5rem] items-center justify-center">
                   <div className="flex flex-col w-full gap-[.3rem]">
                     <label className="text-main-color">
                       رقم هاتف المتعاقد:
@@ -1010,11 +1010,11 @@ export default function Form() {
 
           {slideNum == 5 && (
             <div className="flex flex-col items-center justify-center w-full mb-[1.5rem]">
-              <h1 className="mb-[1.5rem] text-[2rem] text-main-color font-[700]">
+              <h1 className="md:mb-[1.5rem] mb-[.5rem] text-[2rem] text-main-color font-[700]">
                 تفاصيل الأعمال
               </h1>
 
-              <div className="flex flex-col w-[70%] gap-[.3rem]">
+              <div className="flex flex-col md:w-[70%] w-full gap-[.3rem]">
                 <div className="flex items-center gap-[.3rem] relative">
                   <label className="text-main-color">وصف موجز للأعمال:</label>
                   <FaRegQuestionCircle
@@ -1052,7 +1052,7 @@ export default function Form() {
                 ></textarea>
               </div>
 
-              <div className="flex flex-col w-[70%] gap-[.3rem]">
+              <div className="flex flex-col md:w-[70%] w-full gap-[.3rem]">
                 <div className="flex items-center gap-[.3rem] relative">
                   <label className="text-main-color">وصف الأعمال:</label>
                   <FaRegQuestionCircle
@@ -1088,7 +1088,7 @@ export default function Form() {
                 ></textarea>
               </div>
 
-              <div className="flex flex-col w-[70%] gap-[.3rem] mb-[.5rem]">
+              <div className="flex flex-col md:w-[70%] w-full gap-[.3rem] mb-[.5rem]">
                 <div className="flex items-center gap-[.3rem] relative">
                   <label className="text-main-color">إضافة وثائق:</label>
                   <FaRegQuestionCircle
@@ -1146,7 +1146,7 @@ export default function Form() {
                 ))}
               </ul>
 
-              <div className="flex gap-[1.5rem] items-center justify-center w-[70%]">
+              <div className="flex gap-[1.5rem] items-center justify-center md:w-[70%] w-full">
                 <div className="flex flex-col w-full gap-[.3rem]">
                   <label className="text-main-color">مدة إنتهاء الأعمال:</label>
                   <select
@@ -1180,7 +1180,7 @@ export default function Form() {
                 )}
               </div>
 
-              <div className="flex flex-col items-center justify-center w-[70%]">
+              <div className="flex flex-col items-center justify-center md:w-[70%] w-full">
                 <div className="flex flex-col w-full gap-[.3rem]">
                   <label className="text-main-color">
                     تاريخ البدء بتنفيذ الأعمال:
@@ -1279,7 +1279,7 @@ export default function Form() {
                 </div>
               </div>
 
-              <div className="flex flex-col w-[70%] gap-[.3rem]">
+              <div className="flex flex-col md:w-[70%] w-full gap-[.3rem]">
                 <div className="flex items-center gap-[.3rem] relative">
                   <label className="text-main-color">
                     هل تريد إضافة المزيد من الجهات؟
